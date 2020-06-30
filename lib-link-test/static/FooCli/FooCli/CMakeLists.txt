@@ -10,6 +10,8 @@ set(METHOD1 ON)
 add_executable(FooCli main.cpp)
 
 if(METHOD1)
+  target_link_libraries(FooCli ${CMAKE_SOURCE_DIR}/lib/libFoo.a)
+else()
   add_library(Foo STATIC IMPORTED GLOBAL)
 
   set_target_properties(Foo
@@ -17,8 +19,6 @@ if(METHOD1)
       IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/libFoo.a
   )
   target_link_libraries(FooCli Foo)
-else()
-  target_link_libraries(FooCli ${CMAKE_SOURCE_DIR}/lib/libFoo.a)
 endif()
 
 target_include_directories(FooCli PRIVATE include/)
